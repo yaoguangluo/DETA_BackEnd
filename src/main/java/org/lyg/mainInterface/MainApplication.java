@@ -20,6 +20,6 @@ implements EmbeddedServletContainerCustomizer {
 	}
 	
 	public void customize(ConfigurableEmbeddedServletContainer container) {
-		container.setPort(80);
+		container.setPort(8080);
 	}
 }
