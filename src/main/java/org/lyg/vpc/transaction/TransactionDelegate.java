@@ -1,6 +1,8 @@
 package org.lyg.vpc.transaction;
 import com.google.gson.Gson;
 import org.json.JSONObject;
+import org.lyg.common.maps.VtoV;
+import org.lyg.common.utils.DetaDBUtil;
 import org.lyg.common.utils.StringUtil;
 import org.lyg.common.utils.TokenUtil;
 import org.lyg.vpc.controller.company.LoginService;
@@ -16,24 +18,27 @@ import java.util.Map;
 public class TransactionDelegate {
 	@Autowired
 	private LoginService loginService;
-	public  Map<String, Object> transactionLogin(String uEmail, String uPassword)throws Exception {
-		Usr usr = loginService.findUsrByUEmail(uEmail);
-		UsrToken usrToken = loginService.findUsrTokenByUId(usr.getuId());
-		String password = TokenUtil.getSecondMD5Password(uPassword);
-		if (!password.equals(usrToken.getuPassword())) {
-			Map<String, Object> out = new HashMap<>();
-			out.put("loginInfo", "unsuccess");
-			out.put("returnResult", "密码不正确");
-			return out;
-		}
-		Token token = TokenUtil.getNewTokenFromUsrAndUsrToken(usr, usrToken);
-		String json = new Gson().toJson(token);
-		String jsonToken = StringUtil.encode(json);
-		loginService.updateUsrTokenByUId(usr.getuId(), token.getuKey(), password, token.getuTime()/1000);
-		Map<String, Object> out = new HashMap<>();
-		out.put("userToken", jsonToken);
-		out.put("userEmail", uEmail);
-		out.put("loginInfo", "success");
+	public Map<String, Object> transactionLogin(String uEmail, String uPassword)throws Exception {
+		String response = DetaDBUtil.DBRequest("login?uEmail=" + uEmail + "&uPassword=" + uPassword);
+		Map<String, Object> out = new VtoV().JsonObjectToMap(new JSONObject(response));
+		
+//		Usr usr = loginService.findUsrByUEmail(uEmail);
+//		UsrToken usrToken = loginService.findUsrTokenByUId(usr.getuId());
+//		String password = TokenUtil.getSecondMD5Password(uPassword);
+//		if (!password.equals(usrToken.getuPassword())) {
+//			Map<String, Object> out = new HashMap<>();
+//			out.put("loginInfo", "unsuccess");
+//			out.put("returnResult", "密码不正确");
+//			return out;
+//		}
+//		Token token = TokenUtil.getNewTokenFromUsrAndUsrToken(usr, usrToken);
+//		String json = new Gson().toJson(token);
+//		String jsonToken = StringUtil.encode(json);
+//		loginService.updateUsrTokenByUId(usr.getuId(), token.getuKey(), password, token.getuTime()/1000);
+//		Map<String, Object> out = new HashMap<>();
+//		out.put("userToken", jsonToken);
+//		out.put("userEmail", uEmail);
+//		out.put("loginInfo", "success");
 		return out;
 	}
 

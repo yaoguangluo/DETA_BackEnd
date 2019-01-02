@@ -17,9 +17,11 @@ public class LoginDAOImpl implements LoginDAO{
 	@SuppressWarnings("unchecked")
 	@Override
 	public Usr selectUsrByUId(Integer uId) throws IOException {
-		String json = DetaDBUtil.DBRequest("/selectRowsByAttribute?currentDB=" + "backend" + "&tableName=" 
-	+ "usr" + "&culumnName=" + "u_id" + "&value=" + uId + "&email=" + "313699483@qq.com" + "&password=" + "Fengyue1985!");		
-		List<Map<String, Object>> list = (List<Map<String, Object>>) new VtoV().JsonObjectToMap(new JSONObject(json));
+		String json = DetaDBUtil.DBRequest("/selectRowsByAttribute?baseName=" + "backend" + "&tableName=" 
+	+ "usr" + "&culumnName=" + "u_id" + "&value=" + uId + "&email=" + "313699483@qq.com" + "&password=" 
+				+ "Fengyue1985!" + "&auth=" + "0");
+		Map<String, Object> map = (Map<String, Object>) new VtoV().JsonObjectToMap(new JSONObject(json));
+		List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("obj");
 		Usr usr = new Usr();
 		if(list.size() > 0) {
 			usr.setuAddress(list.get(0).get("u_address")!=null?list.get(0).get("u_address").toString():"");
@@ -39,9 +41,11 @@ public class LoginDAOImpl implements LoginDAO{
 	@SuppressWarnings("unchecked")
 	@Override
 	public UsrToken selectUsrTokenByUId(Integer uId) throws IOException {
-		String json = DetaDBUtil.DBRequest("/selectRowsByAttribute?currentDB=" + "backend" + "&tableName=" 
-				+ "usrToken" + "&culumnName=" + "u_id" + "&value=" + uId + "&email=" + "313699483@qq.com" + "&password=" + "Fengyue1985!");		
-					List<Map<String, Object>> list = (List<Map<String, Object>>) new VtoV().JsonObjectToMap(new JSONObject(json));
+		String json = DetaDBUtil.DBRequest("/selectRowsByAttribute?baseName=" + "backend" + "&tableName=" 
+				+ "usrToken" + "&culumnName=" + "u_id" + "&value=" + uId + "&email=" + "313699483@qq.com" 
+				+ "&password=" + "Fengyue1985!" + "&auth=" + "0");		
+		Map<String, Object> map = (Map<String, Object>) new VtoV().JsonObjectToMap(new JSONObject(json));
+		List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("obj");
 		UsrToken usrToken = new UsrToken();
 		if(list.size() > 0) {	
 			usrToken.setuId(Integer.valueOf(list.get(0).get("u_id").toString()));
@@ -62,9 +66,11 @@ public class LoginDAOImpl implements LoginDAO{
 	@SuppressWarnings("unchecked")
 	@Override
 	public Usr selectUsrByUEmail(String uEmail) throws IOException {
-		String json = DetaDBUtil.DBRequest("/selectRowsByAttribute?currentDB=" + "backend" + "&tableName=" 
-				+ "usr" + "&culumnName=" + "u_email" + "&value=" + uEmail + "&email=" + "313699483@qq.com" + "&password=" + "Fengyue1985!");		
-		List<Map<String, Object>> list = (List<Map<String, Object>>) new VtoV().JsonObjectToMap(new JSONObject(json));
+		String json = DetaDBUtil.DBRequest("/selectRowsByAttribute?baseName=" + "backend" + "&tableName=" 
+				+ "usr" + "&culumnName=" + "u_email" + "&value=" + uEmail + "&email=" + "313699483@qq.com" 
+				+ "&password=" + "Fengyue1985!" + "&auth=" + "0");
+		Map<String, Object> map = (Map<String, Object>) new VtoV().JsonObjectToMap(new JSONObject(json));
+		List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("obj");
 		Usr usr = new Usr();
 		if(list.size() > 0) {
 			usr.setuAddress(list.get(0).get("u_address")!=null?list.get(0).get("u_address").toString():"");
@@ -95,8 +101,9 @@ public class LoginDAOImpl implements LoginDAO{
 		jobj.put("u_class", uClass);
 		jobj.put("u_email", uEmail);
 		jobj.put("u_qq", uQq);
-		String json = DetaDBUtil.DBRequest("/updateRowByTablePathAndAttribute?currentDB=" + "backend" + "&tableName=" 
-				+ "usr" + "&culumnName=" + "u_email" + "&value=" + uEmail + "&email=" + "313699483@qq.com" + "&password=" + "Fengyue1985!");		
+		String json = DetaDBUtil.DBRequest("/updateRowByTablePathAndAttribute?baseName=" + "backend" + "&tableName=" 
+				+ "usr" + "&culumnName=" + "u_email" + "&value=" + uEmail + "&email=" + "313699483@qq.com" 
+				+ "&password=" + "Fengyue1985!" + "&auth=" + "0");		
 	}
 
 	@Override
@@ -106,8 +113,9 @@ public class LoginDAOImpl implements LoginDAO{
 		jobj.put("u_key", uKey);
 		jobj.put("u_password", uPassword);
 		jobj.put("u_time", uTime);
-		String json = DetaDBUtil.DBRequest("/updateRowByTablePathAndAttribute?currentDB=" + "backend" + "&tableName=" 
-				+ "usrToken" + "&culumnName=" + "u_id" + "&value=" + uId + "&email=" + "313699483@qq.com" + "&password=" + "Fengyue1985!");		
+		String json = DetaDBUtil.DBRequest("/updateRowByTablePathAndAttribute?baseName=" + "backend" + "&tableName=" 
+				+ "usrToken" + "&culumnName=" + "u_id" + "&value=" + uId + "&email=" + "313699483@qq.com" 
+				+ "&password=" + "Fengyue1985!" + "&auth=" + "0");		
 	}
 
 	@Override
@@ -125,8 +133,9 @@ public class LoginDAOImpl implements LoginDAO{
 
 	@Override
 	public void insertRowByTablePath(String baseName, String tableName, JSONObject culumnOfNewRow) throws FileNotFoundException, IOException {
-		String json = DetaDBUtil.DBRequest("/insertRowsByTablePath?baseName=" + baseName + "&pageIndex=" 
-				+ "usrToken" + "&culumnOfNewRow=" + culumnOfNewRow.toString() + "&email=" + "313699483@qq.com" + "&password=" + "Fengyue1985!");		
+		String json = DetaDBUtil.DBRequest("/insertRowByBaseName?baseName=" + baseName + "&tableName=" 
+				+ tableName + "&culumnOfNewRow=" + culumnOfNewRow.toString() + "&email=" + "313699483@qq.com" 
+				+ "&password=" + "Fengyue1985!" + "&auth=" + "0");		
 	}
 	
 }
