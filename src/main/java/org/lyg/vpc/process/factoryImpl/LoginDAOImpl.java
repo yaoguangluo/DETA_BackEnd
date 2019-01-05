@@ -1,6 +1,7 @@
 package org.lyg.vpc.process.factoryImpl;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 import org.json.JSONObject;
@@ -11,15 +12,16 @@ import org.lyg.vpc.view.Usr;
 import org.lyg.vpc.view.UsrFull;
 import org.lyg.vpc.view.UsrToken;
 import org.springframework.stereotype.Service;
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "deprecation"})
 @Service
 public class LoginDAOImpl implements LoginDAO{
 	@SuppressWarnings("unchecked")
 	@Override
 	public Usr selectUsrByUId(Integer uId) throws IOException {
 		String json = DetaDBUtil.DBRequest("/selectRowsByAttribute?baseName=" + "backend" + "&tableName=" 
-	+ "usr" + "&culumnName=" + "u_id" + "&value=" + uId + "&email=" + "313699483@qq.com" + "&password=" 
-				+ "Fengyue1985!" + "&auth=" + "0");
+	+ "usr" + "&culumnName=" + URLEncoder.encode("u_id") + "&value=" + uId + "&email=" 
+				+ URLEncoder.encode("313699483@qq.com") + "&password=" 
+				+ URLEncoder.encode("Fengyue1985!") + "&auth=" + "0");
 		Map<String, Object> map = (Map<String, Object>) new VtoV().JsonObjectToMap(new JSONObject(json));
 		List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("obj");
 		Usr usr = new Usr();
@@ -42,8 +44,8 @@ public class LoginDAOImpl implements LoginDAO{
 	@Override
 	public UsrToken selectUsrTokenByUId(Integer uId) throws IOException {
 		String json = DetaDBUtil.DBRequest("/selectRowsByAttribute?baseName=" + "backend" + "&tableName=" 
-				+ "usrToken" + "&culumnName=" + "u_id" + "&value=" + uId + "&email=" + "313699483@qq.com" 
-				+ "&password=" + "Fengyue1985!" + "&auth=" + "0");		
+				+ "usrToken" + "&culumnName=" + "u_id" + "&value=" + uId + "&email=" + URLEncoder.encode("313699483@qq.com") 
+				+ "&password=" + URLEncoder.encode("Fengyue1985!") + "&auth=" + "0");		
 		Map<String, Object> map = (Map<String, Object>) new VtoV().JsonObjectToMap(new JSONObject(json));
 		List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("obj");
 		UsrToken usrToken = new UsrToken();
@@ -67,8 +69,8 @@ public class LoginDAOImpl implements LoginDAO{
 	@Override
 	public Usr selectUsrByUEmail(String uEmail) throws IOException {
 		String json = DetaDBUtil.DBRequest("/selectRowsByAttribute?baseName=" + "backend" + "&tableName=" 
-				+ "usr" + "&culumnName=" + "u_email" + "&value=" + uEmail + "&email=" + "313699483@qq.com" 
-				+ "&password=" + "Fengyue1985!" + "&auth=" + "0");
+				+ "usr" + "&culumnName=" + URLEncoder.encode("u_email") + "&value=" + URLEncoder.encode(uEmail) + "&email=" + URLEncoder.encode("313699483@qq.com") 
+				+ "&password=" + URLEncoder.encode("Fengyue1985!") + "&auth=" + "0");
 		Map<String, Object> map = (Map<String, Object>) new VtoV().JsonObjectToMap(new JSONObject(json));
 		List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("obj");
 		Usr usr = new Usr();
@@ -102,8 +104,9 @@ public class LoginDAOImpl implements LoginDAO{
 		jobj.put("u_email", uEmail);
 		jobj.put("u_qq", uQq);
 		String json = DetaDBUtil.DBRequest("/updateRowByTablePathAndAttribute?baseName=" + "backend" + "&tableName=" 
-				+ "usr" + "&culumnName=" + "u_email" + "&value=" + uEmail + "&email=" + "313699483@qq.com" 
-				+ "&password=" + "Fengyue1985!" + "&auth=" + "0");		
+				+ "usr" + "&culumnName=" + URLEncoder.encode("u_email") + "&value=" + URLEncoder.encode(uEmail) 
+				+ "&email=" + URLEncoder.encode("313699483@qq.com") 
+				+ "&password=" + URLEncoder.encode("Fengyue1985!") + "&auth=" + "0");		
 	}
 
 	@Override
@@ -114,8 +117,8 @@ public class LoginDAOImpl implements LoginDAO{
 		jobj.put("u_password", uPassword);
 		jobj.put("u_time", uTime);
 		String json = DetaDBUtil.DBRequest("/updateRowByTablePathAndAttribute?baseName=" + "backend" + "&tableName=" 
-				+ "usrToken" + "&culumnName=" + "u_id" + "&value=" + uId + "&email=" + "313699483@qq.com" 
-				+ "&password=" + "Fengyue1985!" + "&auth=" + "0");		
+				+ "usrToken" + "&culumnName=" + URLEncoder.encode("u_id") + "&value=" + uId + "&email=" 
+				+ URLEncoder.encode("313699483@qq.com") + "&password=" + URLEncoder.encode("Fengyue1985!") + "&auth=" + "0");		
 	}
 
 	@Override
@@ -134,8 +137,9 @@ public class LoginDAOImpl implements LoginDAO{
 	@Override
 	public void insertRowByTablePath(String baseName, String tableName, JSONObject culumnOfNewRow) throws FileNotFoundException, IOException {
 		String json = DetaDBUtil.DBRequest("/insertRowByBaseName?baseName=" + baseName + "&tableName=" 
-				+ tableName + "&culumnOfNewRow=" + culumnOfNewRow.toString() + "&email=" + "313699483@qq.com" 
-				+ "&password=" + "Fengyue1985!" + "&auth=" + "0");		
+				+ tableName + "&culumnOfNewRow=" + culumnOfNewRow.toString() + "&email="
+				+ URLEncoder.encode("313699483@qq.com") + "&password=" + URLEncoder.encode("Fengyue1985!") 
+				+ "&auth=" + "0");		
 	}
 	
 }

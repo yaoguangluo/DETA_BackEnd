@@ -77,4 +77,11 @@ public interface RestLoginPort {
 	@RequestMapping(REST_LOGIN_FIND)
 	@Produces(REST_JSON_CONFIG)
 	Map<String, Object> find(@QueryParam(DB_LOGIN_U_EMAIL) String uEmail) throws IOException;
+	
+	@RequestLimit(count = DIGIT_ONE, time = DIGIT_60000)
+	@POST
+	@RequestMapping("/checkStatus")
+	@Produces(REST_JSON_CONFIG)
+	Map<String, Object> checkStatus(@QueryParam("token") String token) throws IOException;
+	
 }

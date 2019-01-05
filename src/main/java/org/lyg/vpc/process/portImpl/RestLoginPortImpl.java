@@ -1,10 +1,16 @@
 package org.lyg.vpc.process.portImpl;
 import lombok.extern.slf4j.Slf4j;
+
+import org.json.JSONObject;
+import org.lyg.common.maps.VtoV;
+import org.lyg.common.utils.DetaDBUtil;
+import org.lyg.vpc.controller.company.LoginService;
 import org.lyg.vpc.controller.port.RestLoginPort;
 import org.lyg.vpc.transaction.TransactionDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 @SuppressWarnings("unused")
@@ -13,7 +19,10 @@ import java.util.Map;
 public class RestLoginPortImpl implements RestLoginPort {
 	@Autowired
 	private TransactionDelegate transactionDelegate;
-	
+
+	@Autowired
+	private LoginService loginService;
+
 	@Override
 	public Map<String, Object> login(String uEmail, String uPassword) throws Exception {
 		Map<String, Object> map = transactionDelegate.transactionLogin(uEmail, uPassword);
@@ -47,5 +56,29 @@ public class RestLoginPortImpl implements RestLoginPort {
 	@Override
 	public Map<String, Object> find(String uEmail) throws IOException {
 		return null;
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public Map<String, Object> checkStatus(String token) throws IOException {
+		String json = DetaDBUtil.DBRequest("checkStatus?token=" + URLEncoder.encode(token));
+		Map<String, Object> output = null;
+		boolean jsonCheck = true;
+		if(null == json){
+			output = new HashMap<String, Object>();
+			output.put("loginInfo", "unsuccess");
+			jsonCheck = false;
+		}
+		if(json.contains("unsuccess")){
+			output = new VtoV().JsonObjectToMap(new JSONObject(json));
+			jsonCheck = false;
+		}
+		if(jsonCheck){
+			output = new VtoV().JsonObjectToMap(new JSONObject(json));
+			return output;
+		}
+		output = new HashMap<String, Object>();
+		output.put("loginInfo", "unsuccess");
+		return output;
 	}
 }

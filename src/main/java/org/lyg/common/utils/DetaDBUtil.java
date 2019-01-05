@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 public class DetaDBUtil {
-	@SuppressWarnings("deprecation")
 	public static String DBRequest(String request) throws IOException {
-		URL url = new URL("http://localhost:3306/" + URLEncoder.encode(request));
+		URL url = new URL("http://localhost:3306/" + request);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("POST");
 		conn.setRequestProperty("Accept", "application/json");
