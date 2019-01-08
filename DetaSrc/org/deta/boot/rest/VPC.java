@@ -9,14 +9,24 @@ public class VPC {
 		if(string.equalsIgnoreCase("/login")){
 			return new VtoV().ObjectToJsonString(RestLoginPortImpl.login(data.get("uEmail"),data.get("uPassword")));	
 		}
-//		if(string.equalsIgnoreCase("/get")){
-//			return new VtoV().ObjectToJsonString(new RestCachePortImpl().get(data.get("key"), data.get("email")
-//					,  data.get("password")));	
-//		}
-//		if(string.equalsIgnoreCase("/put")){
-//			return new VtoV().ObjectToJsonString(new RestCachePortImpl().put(data.get("key"), data.get("value")
-//					,data.get("time")  , data.get("email"), data.get("password")));	
-//		}
+		if(string.equalsIgnoreCase("/find")){
+			return new VtoV().ObjectToJsonString(RestLoginPortImpl.find(data.get("uEmail")));
+		}
+		if(string.equalsIgnoreCase("/logout")){
+			return new VtoV().ObjectToJsonString(RestLoginPortImpl.logout(data.get("uEmail"), data.get("uToken")));
+		}
+		if(string.equalsIgnoreCase("/register")){
+			return new VtoV().ObjectToJsonString(RestLoginPortImpl.register(data.get("uEmail"), data.get("uEmailEnsure")
+					, data.get("uName"), data.get("uPassword"), data.get("uPassWDEnsure"), data.get("uAddress")
+					, data.get("uPhone"), data.get("uWeChat"), data.get("uQq"), data.get("uAge"), data.get("uSex")));	
+		}
+		if(string.equalsIgnoreCase("/change")){
+			return new VtoV().ObjectToJsonString(RestLoginPortImpl.change(data.get("uEmail"), data.get("uChange")
+					, data.get("uChangeEnsure"),data.get("uToken"), data.get("uPassword")));	
+		}
+		if(string.equalsIgnoreCase("/checkStatus")){
+			return new VtoV().ObjectToJsonString(RestLoginPortImpl.checkStatus(data.get("token")));	
+		}
 		return "";
 	}
 //	public static void initController() throws Exception {
