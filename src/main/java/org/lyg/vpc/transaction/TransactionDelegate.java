@@ -3,9 +3,8 @@ import org.json.JSONObject;
 import org.lyg.common.maps.VtoV;
 import org.lyg.common.utils.DetaDBUtil;
 import org.lyg.common.utils.TokenUtil;
-import org.lyg.vpc.controller.company.LoginService;
+import org.lyg.vpc.process.companyImpl.LoginServiceImpl;
 import org.lyg.vpc.view.Usr;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -13,10 +12,10 @@ import java.util.Map;
 
 @Service
 public class TransactionDelegate {
-	@Autowired
-	private LoginService loginService;
+//	@Autowired
+//	private LoginService loginService;
 	@SuppressWarnings("deprecation")
-	public Map<String, Object> transactionLogin(String uEmail, String uPassword)throws Exception {
+	public static Map<String, Object> transactionLogin(String uEmail, String uPassword)throws Exception {
 		String response = DetaDBUtil.DBRequest("login?uEmail=" + URLEncoder.encode(uEmail) + "&uPassword=" 
 				+ URLEncoder.encode(uPassword));
 		Map<String, Object> out = new VtoV().JsonObjectToMap(new JSONObject(response));
@@ -41,10 +40,10 @@ public class TransactionDelegate {
 		return out;
 	}
 
-	public Map<String, Object> transactionRegister(String uEmail, String uEmailEnsure, String uName, String uPassword,
+	public static Map<String, Object> transactionRegister(String uEmail, String uEmailEnsure, String uName, String uPassword,
 			String uPassWDEnsure, String uAddress, String uPhone, String uWeChat, String uQq, String uAge,
 			String uSex) throws Exception {
-		Usr usr = loginService.findUsrByUEmail(uEmail);
+		Usr usr = LoginServiceImpl.findUsrByUEmail(uEmail);
 		if(usr.getuEmail()!=null) {
 			Map<String, Object> out = new HashMap<>();
 			out.put("loginInfo", "unsuccess");
@@ -62,13 +61,13 @@ public class TransactionDelegate {
 		jsobj.put("u_age", uAge);
 		jsobj.put("u_sex", uSex);
 		jsobj.put("u_id", "random");
-		loginService.insertRowByTablePath("backend", "usr", jsobj);
-		usr = loginService.findUsrByUEmail(uEmail);
+		LoginServiceImpl.insertRowByTablePath("backend", "usr", jsobj);
+		usr = LoginServiceImpl.findUsrByUEmail(uEmail);
 		JSONObject jsobjToken = new JSONObject();
 		jsobjToken.put("u_id", usr.getuId());
 		jsobjToken.put("u_level", "low");
 		jsobjToken.put("u_password", TokenUtil.getSecondMD5Password(uPassword));
-		loginService.insertRowByTablePath("backend", "usrToken", jsobjToken);
-		return this.transactionLogin(uEmail, uPassword);
+		LoginServiceImpl.insertRowByTablePath("backend", "usrToken", jsobjToken);
+		return transactionLogin(uEmail, uPassword);
 	}
 }

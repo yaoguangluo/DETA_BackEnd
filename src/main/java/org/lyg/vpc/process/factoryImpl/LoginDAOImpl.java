@@ -1,5 +1,6 @@
 package org.lyg.vpc.process.factoryImpl;
 import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -7,17 +8,16 @@ import java.util.Map;
 import org.json.JSONObject;
 import org.lyg.common.maps.VtoV;
 import org.lyg.common.utils.DetaDBUtil;
-import org.lyg.vpc.controller.factory.LoginDAO;
+//import org.lyg.vpc.controller.factory.LoginDAO;
 import org.lyg.vpc.view.Usr;
 import org.lyg.vpc.view.UsrFull;
 import org.lyg.vpc.view.UsrToken;
 import org.springframework.stereotype.Service;
 @SuppressWarnings({"unused", "deprecation"})
 @Service
-public class LoginDAOImpl implements LoginDAO{
+public class LoginDAOImpl{// implements LoginDAO{
 	@SuppressWarnings("unchecked")
-	@Override
-	public Usr selectUsrByUId(Integer uId) throws IOException {
+	public static Usr selectUsrByUId(Integer uId) throws IOException {
 		String json = DetaDBUtil.DBRequest("/selectRowsByAttribute?baseName=" + "backend" + "&tableName=" 
 	+ "usr" + "&culumnName=" + URLEncoder.encode("u_id") + "&value=" + uId + "&email=" 
 				+ URLEncoder.encode("313699483@qq.com") + "&password=" 
@@ -41,8 +41,7 @@ public class LoginDAOImpl implements LoginDAO{
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
-	public UsrToken selectUsrTokenByUId(Integer uId) throws IOException {
+	public static UsrToken selectUsrTokenByUId(Integer uId) throws IOException {
 		String json = DetaDBUtil.DBRequest("/selectRowsByAttribute?baseName=" + "backend" + "&tableName=" 
 				+ "usrToken" + "&culumnName=" + "u_id" + "&value=" + uId + "&email=" + URLEncoder.encode("313699483@qq.com") 
 				+ "&password=" + URLEncoder.encode("Fengyue1985!") + "&auth=" + "0");		
@@ -59,15 +58,13 @@ public class LoginDAOImpl implements LoginDAO{
 		return usrToken;
 	}
 
-	@Override
-	public UsrFull selectUsrFullByUId(Integer uId) {
+	public static UsrFull selectUsrFullByUId(Integer uId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
-	public Usr selectUsrByUEmail(String uEmail) throws IOException {
+	public static Usr selectUsrByUEmail(String uEmail) throws IOException {
 		String json = DetaDBUtil.DBRequest("/selectRowsByAttribute?baseName=" + "backend" + "&tableName=" 
 				+ "usr" + "&culumnName=" + URLEncoder.encode("u_email") + "&value=" + URLEncoder.encode(uEmail) + "&email=" + URLEncoder.encode("313699483@qq.com") 
 				+ "&password=" + URLEncoder.encode("Fengyue1985!") + "&auth=" + "0");
@@ -89,8 +86,7 @@ public class LoginDAOImpl implements LoginDAO{
 		return usr;
 	}
 
-	@Override
-	public void updateUsrByUId(Integer uId, String uName, String uAge, String uSex, String uPhone, String uAddress,
+	public static void updateUsrByUId(Integer uId, String uName, String uAge, String uSex, String uPhone, String uAddress,
 			String uWeChat, String uClass, String uEmail, String uQq) throws IOException {
 		JSONObject jobj = new JSONObject();
 		jobj.put("u_id", uId);
@@ -109,8 +105,7 @@ public class LoginDAOImpl implements LoginDAO{
 				+ "&password=" + URLEncoder.encode("Fengyue1985!") + "&auth=" + "0");		
 	}
 
-	@Override
-	public void updateUsrTokenByUId(Integer uId, String uKey, String uPassword, long uTime) throws IOException {
+	public static void updateUsrTokenByUId(Integer uId, String uKey, String uPassword, long uTime) throws IOException {
 		JSONObject jobj = new JSONObject();
 		jobj.put("u_id", uId);
 		jobj.put("u_key", uKey);
@@ -121,21 +116,18 @@ public class LoginDAOImpl implements LoginDAO{
 				+ URLEncoder.encode("313699483@qq.com") + "&password=" + URLEncoder.encode("Fengyue1985!") + "&auth=" + "0");		
 	}
 
-	@Override
-	public void insertUsr(String uName, String uAge, String uSex, String uPhone, String uAddress, String uWeChat,
+	public static void insertUsr(String uName, String uAge, String uSex, String uPhone, String uAddress, String uWeChat,
 			String uClass, String uEmail, String uQq) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void insertUsroken(Integer uId, String uKey, String uPassword, long uTime) {
+	public static void insertUsroken(Integer uId, String uKey, String uPassword, long uTime) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void insertRowByTablePath(String baseName, String tableName, JSONObject culumnOfNewRow) throws FileNotFoundException, IOException {
+	public static void insertRowByTablePath(String baseName, String tableName, JSONObject culumnOfNewRow) throws FileNotFoundException, IOException {
 		String json = DetaDBUtil.DBRequest("/insertRowByBaseName?baseName=" + baseName + "&tableName=" 
 				+ tableName + "&culumnOfNewRow=" + culumnOfNewRow.toString() + "&email="
 				+ URLEncoder.encode("313699483@qq.com") + "&password=" + URLEncoder.encode("Fengyue1985!") 
