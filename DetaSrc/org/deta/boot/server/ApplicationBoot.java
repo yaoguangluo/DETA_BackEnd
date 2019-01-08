@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.Properties;
 import java.util.Random;
-
-import org.deta.boot.rest.VPC;
 import org.deta.boot.thread.SocketThread;
 import org.deta.boot.thread.SocketThreadPool;
 public class ApplicationBoot {
