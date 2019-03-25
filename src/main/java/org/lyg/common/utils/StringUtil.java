@@ -3,22 +3,20 @@ package org.lyg.common.utils;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import org.jboss.resteasy.util.Base64;
+import java.util.Base64;
 
 public class StringUtil {
 	public static String encode(String input) throws Exception {
-		String result = Base64.encodeBytes(input.getBytes("utf-8"));
+		String result =	Base64.getEncoder().encodeToString(input.getBytes("UTF-8"));
 		return result;
 	}
 
-	public static String decode(String str) {
-		byte[] bt = null;
-		try {
-			bt = Base64.decode(str);
-		} catch (Exception e) {
-			e.printStackTrace();
+	public static String decode(String str) throws UnsupportedEncodingException {
+		if(str.equalsIgnoreCase("undefined")) {
+			return str;
+		}else {
+			return new String(Base64.getMimeDecoder().decode(str), "UTF-8");
 		}
-		return new String(bt);
 	}
 
 	public static String EncoderByMd5(String salt, String pwd, int enctimes) throws NoSuchAlgorithmException,

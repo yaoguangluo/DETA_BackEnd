@@ -18,6 +18,7 @@ public class RestMap {
 		String output = "";
 		try {
 			output = VPC.forward(type[0], data);
+			System.out.println(output);
 			PrintWriter pw=new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket
 					.getOutputStream(),"UTF-8")),true);
 			pw.println("HTTP/1.1 200 OK\n\n"); 

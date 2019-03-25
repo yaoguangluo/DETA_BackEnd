@@ -9,6 +9,7 @@ public class DetaDBUtil {
 		URL url = new URL("http://localhost:3306/" + request);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("POST");
+		conn.setConnectTimeout(20000);
 		conn.setRequestProperty("Accept", "application/json");
 		if (conn.getResponseCode() != 200) {
 			throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
