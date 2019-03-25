@@ -21,6 +21,7 @@ public class SocketThread extends Thread implements Runnable{
 		try{
 			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String mess = br.readLine();
+			System.out.println(122);
 			if(null == mess){
 				error500();
 			}
