@@ -66,4 +66,9 @@ public class VtoV{
 		}
 		return output;	
 	}
+
+	public Object StringListToJsonString(List<String> sets) {
+		Gson gson = new Gson();
+		return gson.toJson(sets);
+	}
 }

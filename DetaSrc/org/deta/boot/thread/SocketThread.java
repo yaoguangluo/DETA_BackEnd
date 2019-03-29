@@ -6,14 +6,20 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import org.deta.boot.rest.RestMap;
+import org.tinos.emotion.ortho.fhmm.EmotionMap;
+import org.tinos.engine.analysis.Analyzer;
 
 public class SocketThread extends Thread implements Runnable{
 	private Socket socket;
+	private Analyzer analyzer;
+	private EmotionMap emotionMap;
 	private String sid;
 	private SocketThreadPool socketThreadPool;
-	public SocketThread(SocketThreadPool socketThreadPool, Socket socket, String id){
+	public SocketThread(EmotionMap emotionMap, Analyzer analyzer, SocketThreadPool socketThreadPool, Socket socket, String id){
 		this.socket = socket;
 		this.sid = id;
+		this.analyzer = analyzer;
+		this.emotionMap= emotionMap;
 		this.socketThreadPool = socketThreadPool;
 	}
 
@@ -38,7 +44,7 @@ public class SocketThread extends Thread implements Runnable{
 			if(content[1]==null){
 				error500();
 			}
-			RestMap.process(content, socket);
+			RestMap.process(content, socket, this.analyzer, this.emotionMap);
 			socket.close();
 		}catch(Exception e){
 			try {

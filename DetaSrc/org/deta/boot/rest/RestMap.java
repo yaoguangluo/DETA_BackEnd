@@ -7,8 +7,10 @@ import java.net.Socket;
 import java.net.URLDecoder;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.tinos.emotion.ortho.fhmm.EmotionMap;
+import org.tinos.engine.analysis.Analyzer;
 public class RestMap {
-	public static void process(String[] type, Socket socket) throws IOException {
+	public static void process(String[] type, Socket socket, Analyzer analyzer, EmotionMap emotionMap) throws IOException {
 		String[] column = type[1].split("&");
 		Map<String, String> data = new ConcurrentHashMap<>();
 		for(String cell:column){
@@ -17,8 +19,8 @@ public class RestMap {
 		}
 		String output = "";
 		try {
-			output = VPC.forward(type[0], data);
-			System.out.println(output);
+			output = VPC.forward(emotionMap, analyzer, type[0], data);
+//			System.out.println(output);
 			PrintWriter pw=new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket
 					.getOutputStream(),"UTF-8")),true);
 			pw.println("HTTP/1.1 200 OK\n\n"); 

@@ -6,7 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 public class DetaDBUtil {
 	public static String DBRequest(String request) throws IOException {
-		URL url = new URL("http://localhost:3306/" + request);
+		URL url = new URL("http://localhost:3306" + request);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("POST");
 		conn.setConnectTimeout(20000);

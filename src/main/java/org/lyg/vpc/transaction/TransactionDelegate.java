@@ -16,7 +16,7 @@ public class TransactionDelegate {
 //	private LoginService loginService;
 	@SuppressWarnings("deprecation")
 	public static Map<String, Object> transactionLogin(String uEmail, String uPassword)throws Exception {
-		String response = DetaDBUtil.DBRequest("login?uEmail=" + URLEncoder.encode(uEmail) + "&uPassword=" 
+		String response = DetaDBUtil.DBRequest("/login?uEmail=" + URLEncoder.encode(uEmail) + "&uPassword=" 
 				+ URLEncoder.encode(uPassword));
 		Map<String, Object> out = new VtoV().JsonObjectToMap(new JSONObject(response));
 
