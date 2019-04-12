@@ -16,18 +16,18 @@ public class SocketThread extends Thread implements Runnable{
 	private String sid;
 	private SocketThreadPool socketThreadPool;
 	public SocketThread(EmotionMap emotionMap, Analyzer analyzer, SocketThreadPool socketThreadPool, Socket socket, String id){
-		this.socket = socket;
-		this.sid = id;
-		this.analyzer = analyzer;
+		this.socket= socket;
+		this.sid= id;
+		this.analyzer= analyzer;
 		this.emotionMap= emotionMap;
-		this.socketThreadPool = socketThreadPool;
+		this.socketThreadPool= socketThreadPool;
 	}
 
 	public void run(){
 		try{
-			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			String mess = br.readLine();
-			if(null == mess){
+			BufferedReader br= new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			String mess= br.readLine();
+			if(null== mess){
 				error500();
 			}
 			if(mess.equalsIgnoreCase("")){
@@ -65,7 +65,7 @@ public class SocketThread extends Thread implements Runnable{
 	}
 
 	private void error500() throws IOException {
-		PrintWriter pw=new PrintWriter(socket.getOutputStream(),true);
+		PrintWriter pw= new PrintWriter(socket.getOutputStream(), true);
 		pw.println("HTTP/1.1 500 OK\n\n"); 
 		pw.flush();
 		pw.close();

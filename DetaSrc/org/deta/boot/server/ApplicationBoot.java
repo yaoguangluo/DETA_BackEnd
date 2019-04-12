@@ -11,11 +11,14 @@ import org.tinos.emotion.ortho.fhmm.EmotionMap;
 import org.tinos.emotion.ortho.fhmm.imp.EmotionMapImp;
 import org.tinos.engine.analysis.Analyzer;
 import org.tinos.engine.analysis.imp.CogsBinaryForestAnalyzerImp;
+
+import DNAProcessor.LIFE;
 public class ApplicationBoot {
 	private static ServerSocket server;
 	private static Properties properties;
 	private Analyzer analyzer;
 	private EmotionMap emotionMap;
+	public static LIFE luoyaoguang;
 	private int port;
 	static {
 		properties = new Properties();
@@ -39,6 +42,8 @@ public class ApplicationBoot {
 			emotionMap.initTrendingMap();
 			emotionMap.initPredictionMap();
 			emotionMap.initDistinctionMap();
+			luoyaoguang= new LIFE();
+			luoyaoguang.born();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,5 +1,7 @@
 package org.lyg.vpc.process.portImpl;
 import sortProcessor.Quick_6D_luoyaoguang_Sort;
+
+import org.deta.boot.server.ApplicationBoot;
 import org.tinos.behavior.ICA.InitBehaviorICAKernel;
 import org.tinos.behavior.test.SuccessICATest;
 import org.tinos.emotion.engine.LenovoInit;
@@ -177,6 +179,7 @@ public class RestNLPPortImpl{// implements RestLoginPort {
 	}
 
 	public static Map<String, Object> dataCL(Analyzer analyzer, String string) {
+		ApplicationBoot.luoyaoguang.evolve();
 		return null;
 	}
 }

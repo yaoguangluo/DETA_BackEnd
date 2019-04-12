@@ -63,7 +63,7 @@ public class RestLoginPortImpl{// implements RestLoginPort {
 
 	@SuppressWarnings("deprecation")
 	public static Map<String, Object> checkStatus(String token) throws IOException {
-		String json = DetaDBUtil.DBRequest("checkStatus?token=" + URLEncoder.encode(token));
+		String json = DetaDBUtil.DBRequest("/checkStatus?token=" + URLEncoder.encode(token));
 		Map<String, Object> output = null;
 		boolean jsonCheck = true;
 		if(null == json){

@@ -23,5 +23,6 @@
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
 	<classpathentry kind="src" path="/Deta_Parser"/>
 	<classpathentry kind="src" path="/Data_Processor"/>
+	<classpathentry kind="src" path="/DETA_CACHE"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
