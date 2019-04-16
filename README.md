@@ -1,4 +1,5 @@
-# VPCS_BackEnd
+# 🔥 Tiny VPCS socket HTTP TCP rest server size 10kb， boot 9ms / 世界领先的《VPCS架构》rest 微后端并发物联网http server/服务器 架构 VPC_5.0  架构作者 罗瑶光
+
 新开一个用于后端vpc部署 并集成了德塔数据库，
 # 已完善功能：REST请求
 # 已完善功能：0.009秒服务器启动时间
